@@ -72,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<MemoBean> getExpiredMemos(long cur) {
         List<MemoBean> list = new ArrayList<>();
-        Cursor cursor = db.query("memo", null, "time<=?", new String[]{cur + ""}, null, null, "_id ASC");
+        Cursor cursor = db.query("memo", null, "time<=?", new String[]{cur + ""}, null, null, "time DESC");
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_id"));
             String name = cursor.getString(cursor.getColumnIndex("name"));
@@ -86,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<MemoBean> getTodoMemos(long cur) {
         List<MemoBean> list = new ArrayList<>();
-        Cursor cursor = db.query("memo", null, "time>?", new String[]{cur + ""}, null, null, "_id ASC");
+        Cursor cursor = db.query("memo", null, "time>?", new String[]{cur + ""}, null, null, "time ASC");
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex("_id"));
             String name = cursor.getString(cursor.getColumnIndex("name"));

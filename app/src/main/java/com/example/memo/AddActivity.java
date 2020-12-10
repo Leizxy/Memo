@@ -97,7 +97,14 @@ public class AddActivity extends AppCompatActivity {
                 title.setText(memo.getContent());
                 saveTime = memo.getTime();
                 time.setText(format.format(new Date(saveTime)));
-                spinner.setSelection(memo.getCategory(), true);
+                int select = 0;
+                for (int i = 0; i < categories.size(); i++) {
+                    if (memo.getCategory() == categories.get(i).getId()) {
+                        select = i;
+                        break;
+                    }
+                }
+                spinner.setSelection(select, true);
                 for (String str : memo.getImgs().split(",")) {
                     adapter.addImg(str);
                 }
@@ -162,7 +169,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("PostActivity", "onItemSelected: " + position);
-                currentCategory = position;
+                currentCategory = categories.get(position).getId();
             }
 
             @Override
