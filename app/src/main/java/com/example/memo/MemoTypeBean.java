@@ -37,4 +37,9 @@ class MemoTypeBean {
     public void setShowDel(boolean showDel) {
         this.showDel = showDel;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

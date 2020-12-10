@@ -15,9 +15,9 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         dbHelper = new DBHelper(this);
-        dbHelper.addCategory("工作");
+        /*dbHelper.addCategory("工作");
         dbHelper.addCategory("个人");
-        dbHelper.addCategory("购物");
+        dbHelper.addCategory("购物");*/
     }
 
     public static App getInstance() {

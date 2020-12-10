@@ -2,6 +2,7 @@ package com.example.memo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * @description
  */
 public class TypesActivity extends AppCompatActivity {
+    private TypeAdapter typeAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,8 @@ public class TypesActivity extends AppCompatActivity {
         setTitle("事件类别管理");
         RecyclerView rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new TypeAdapter(this));
+        typeAdapter = new TypeAdapter(this);
+        rv.setAdapter(typeAdapter);
     }
 
 
@@ -38,6 +42,13 @@ public class TypesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add:
+                TypeDialog dialog = new TypeDialog.Builder(this).setClick(name -> {
+                    if (!TextUtils.isEmpty(name)) {
+                        App.getInstance().getHelper().addCategory(name);
+                        typeAdapter.updateData();
+                    }
+                }).create();
+                dialog.show();
                 break;
         }
         return true;
